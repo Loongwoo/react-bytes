@@ -15,7 +15,7 @@ $ npm install react-bytes
 transform bytes array to int
 
 ```js
-bytes2Int([1, 1, 1, 1], 0).should.equal(66048);
+bytes2Int([1, 1, 1, 1], 0).should.equal(16843009);
 ```
 
 ### bytes2Short(arr, start)
@@ -31,7 +31,7 @@ bytes2Short([1, 1], 0).should.equal(257);
 transform int to bytes
 
 ```js
-int2Bytes(66048).should.equal([1, 1, 1, 1]);
+int2Bytes(16843009).should.equal([1, 1, 1, 1]);
 ```
 
 ### short2Bytes(i)
