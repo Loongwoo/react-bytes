@@ -10,6 +10,14 @@ $ npm install react-bytes
 
 ## API
 
+### bytes2Short(arr, start)
+
+transform bytes array to short
+
+```js
+bytes2Short([1, 1], 0).should.equal(257);
+```
+
 ### bytes2Int(arr, start)
 
 transform bytes array to int
@@ -18,12 +26,20 @@ transform bytes array to int
 bytes2Int([1, 1, 1, 1], 0).should.equal(16843009);
 ```
 
-### bytes2Short(arr, start)
+### bytes2Long(arr, start)
 
-transform bytes array to short
+transform bytes array to long
 
 ```js
-bytes2Short([1, 1], 0).should.equal(257);
+bytes2Long([1, 1, 1, 1, 1, 1], 0).should.equal(1103823438081);
+```
+
+### short2Bytes(i)
+
+transform short to bytes
+
+```js
+int2Bytes(257).should.equal([1, 1]);
 ```
 
 ### int2Bytes(i)
@@ -34,10 +50,10 @@ transform int to bytes
 int2Bytes(16843009).should.equal([1, 1, 1, 1]);
 ```
 
-### short2Bytes(i)
+### long2Bytes(i)
 
-transform short to bytes
+transform long to bytes
 
 ```js
-int2Bytes(257).should.equal([1, 1]);
+long2Bytes(1103823438081).should.equal([1, 1, 1, 1, 1, 1]);
 ```
