@@ -12,6 +12,7 @@
     "short",
     "bytes"
   ],
+  "repository": "Loongwoo/react-bytes",
   "author": "levy_hsu",
-  "license": "ISC"
+  "license": "MIT"
 }
