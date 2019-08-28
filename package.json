@@ -1,6 +1,6 @@
 {
   "name": "react-bytes",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Exchange int and short with bytes array",
   "main": "index.js",
   "scripts": {
