@@ -1,0 +1,17 @@
+{
+  "name": "react-bytes",
+  "version": "1.0.0",
+  "description": "Exchange int and short with bytes array",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "int",
+    "short",
+    "bytes"
+  ],
+  "author": "levy_hsu",
+  "license": "ISC"
+}
