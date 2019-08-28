@@ -30,14 +30,7 @@ function bytes2Long(arr, start) {
   if (!Array.isArray(arr) || arr.length < start + 6) {
     return 0;
   }
-  return Number(
-    ((arr[start] & 0xff) << 40) |
-      ((arr[start + 1] & 0xff) << 32) |
-      ((arr[start + 2] & 0xff) << 24) |
-      ((arr[start + 3] & 0xff) << 16) |
-      ((arr[start + 4] & 0xff) << 8) |
-      (arr[start + 5] & 0xff)
-  );
+  return bytes2Short(arr, 0) * 2 ** 32 + bytes2Int(arr, 2);
 }
 
 // The length of the array returned is 2
