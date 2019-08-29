@@ -7,6 +7,8 @@ module.exports.short2Bytes = short2Bytes;
 module.exports.int2Bytes = int2Bytes;
 module.exports.long2Bytes = long2Bytes;
 
+const POW32 = Math.pow(2, 32);
+
 function bytes2Short(arr, start) {
   if (!Array.isArray(arr) || arr.length < start + 2) {
     return 0;
@@ -30,7 +32,7 @@ function bytes2Long(arr, start) {
   if (!Array.isArray(arr) || arr.length < start + 6) {
     return 0;
   }
-  return bytes2Short(arr, 0) * 2 ** 32 + bytes2Int(arr, 2);
+  return bytes2Short(arr, 0) * POW32 + bytes2Int(arr, 2);
 }
 
 // The length of the array returned is 2
@@ -54,7 +56,6 @@ function long2Bytes(i) {
   if (!Number.isInteger(i)) {
     return [];
   }
-  const h = Math.floor(i / 2 ** 32);
-  const l = i % 2 ** 32;
-  return [...short2Bytes(h), ...int2Bytes(l)];
+  const array = short2Bytes(Math.floor(i / POW32));
+  return array.concat(int2Bytes(i % POW32));
 }
