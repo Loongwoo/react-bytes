@@ -1,11 +1,11 @@
-# js-bytes
+# react-bytes
 
 Exchange int and short with bytes array
 
 ## Installation
 
 ```
-$ npm install js-bytes
+$ npm instal react-bytes
 ```
 
 ## API
