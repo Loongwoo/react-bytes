@@ -5,7 +5,7 @@ Exchange int and short with bytes array
 ## Installation
 
 ```
-$ npm install react-bytes
+$ npm install js-bytes
 ```
 
 ## API
