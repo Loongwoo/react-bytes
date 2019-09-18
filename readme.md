@@ -1,4 +1,4 @@
-# react-bytes
+#js-bytes
 
 Exchange int and short with bytes array
 
