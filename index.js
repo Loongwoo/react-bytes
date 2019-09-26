@@ -7,7 +7,7 @@ module.exports.short2Bytes = short2Bytes;
 module.exports.int2Bytes = int2Bytes;
 module.exports.long2Bytes = long2Bytes;
 
-const POW32 = Math.pow(2, 32);
+var POW32 = Math.pow(2, 32);
 
 function bytes2Short(arr, start) {
   if (!Array.isArray(arr) || arr.length < start + 2) {
