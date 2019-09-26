@@ -56,6 +56,6 @@ function long2Bytes(i) {
   if (!Number.isInteger(i)) {
     return [];
   }
-  const array = short2Bytes(Math.floor(i / POW32));
+  var array = short2Bytes(Math.floor(i / POW32));
   return array.concat(int2Bytes(i % POW32));
 }
