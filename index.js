@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports.bytes2Short = bytes2Short;
 module.exports.bytes2Int = bytes2Int;
@@ -9,15 +9,19 @@ module.exports.long2Bytes = long2Bytes;
 
 var POW32 = Math.pow(2, 32);
 
+function isarray(arr) {
+  return Array.isArray(arr) || ArrayBuffer.isView(arr);
+}
+
 function bytes2Short(arr, start) {
-  if (!Array.isArray(arr) || arr.length < start + 2) {
+  if (!isarray(arr) || arr.length < start + 2) {
     return 0;
   }
   return Number(((arr[start] & 0xff) << 8) | (arr[start + 1] & 0xff));
 }
 
 function bytes2Int(arr, start) {
-  if (!Array.isArray(arr) || arr.length < start + 4) {
+  if (!isarray(arr) || arr.length < start + 4) {
     return 0;
   }
   return Number(
@@ -29,7 +33,7 @@ function bytes2Int(arr, start) {
 }
 
 function bytes2Long(arr, start) {
-  if (!Array.isArray(arr) || arr.length < start + 6) {
+  if (!isarray(arr) || arr.length < start + 6) {
     return 0;
   }
   return bytes2Short(arr, 0) * POW32 + bytes2Int(arr, 2);
