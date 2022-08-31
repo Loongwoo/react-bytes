@@ -15,7 +15,7 @@ $ npm instal react-bytes
 transform bytes array to short
 
 ```js
-bytes2Short([1, 1], 0).should.equal(257);
+bytes2Short([1, 2], 0).should.equal(258);
 ```
 
 ### bytes2Int(arr, start)
@@ -23,7 +23,7 @@ bytes2Short([1, 1], 0).should.equal(257);
 transform bytes array to int
 
 ```js
-bytes2Int([1, 1, 1, 1], 0).should.equal(16843009);
+bytes2Int([1, 2, 3, 4], 0).should.equal(16909060);
 ```
 
 ### bytes2Long(arr, start)
@@ -31,7 +31,15 @@ bytes2Int([1, 1, 1, 1], 0).should.equal(16843009);
 transform bytes array to long
 
 ```js
-bytes2Long([1, 1, 1, 1, 1, 1], 0).should.equal(1103823438081);
+bytes2Long([1, 2, 3, 4, 5, 6, 7, 8], 0).should.equal(72623859790382856n);
+```
+
+### bytes2Float(arr, start)
+
+transform bytes array to float
+
+```js
+bytes2Float([1, 2, 3, 4], 0).should.equal(2.387939260590663e-38);
 ```
 
 ### short2Bytes(i)
@@ -39,7 +47,7 @@ bytes2Long([1, 1, 1, 1, 1, 1], 0).should.equal(1103823438081);
 transform short to bytes
 
 ```js
-int2Bytes(257).should.equal([1, 1]);
+int2Bytes(258).should.equal([1, 2]);
 ```
 
 ### int2Bytes(i)
@@ -47,7 +55,7 @@ int2Bytes(257).should.equal([1, 1]);
 transform int to bytes
 
 ```js
-int2Bytes(16843009).should.equal([1, 1, 1, 1]);
+int2Bytes(16909060).should.equal([1, 2, 3, 4]);
 ```
 
 ### long2Bytes(i)
@@ -55,5 +63,13 @@ int2Bytes(16843009).should.equal([1, 1, 1, 1]);
 transform long to bytes
 
 ```js
-long2Bytes(1103823438081).should.equal([1, 1, 1, 1, 1, 1]);
+long2Bytes(72623859790382856n).should.equal([1, 2, 3, 4, 5, 6, 7, 8]);
+```
+
+### float2Bytes(i)
+
+transform float to bytes
+
+```js
+float2Bytes(2.387939260590663e-38).should.equal([1, 2, 3, 4]);
 ```
