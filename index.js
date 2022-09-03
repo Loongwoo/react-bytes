@@ -99,7 +99,7 @@ function long2Bytes(i, littleEndian) {
   const a = new ArrayBuffer(8);
   const b = new DataView(a);
 
-  b.setBigInt64(0, i, littleEndian);
+  b.setBigInt64(0, BigInt(i), littleEndian);
 
   return new Uint8Array(a);
 }
