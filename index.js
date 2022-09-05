@@ -23,7 +23,7 @@ function bytes2Short(arr, start, littleEndian) {
   for (var i = 0; i < 2; i++) {
     b.setInt8(i, arr[start + i]);
   }
-  return b.getInt16(0, littleEndian);
+  return b.getUint16(0, littleEndian);
 }
 
 function bytes2Int(arr, start, littleEndian) {
@@ -36,7 +36,7 @@ function bytes2Int(arr, start, littleEndian) {
   for (var i = 0; i < 4; i++) {
     b.setInt8(i, arr[start + i]);
   }
-  return b.getInt32(0, littleEndian);
+  return b.getUint32(0, littleEndian);
 }
 
 function bytes2Long(arr, start, littleEndian) {
