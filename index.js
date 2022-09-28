@@ -9,6 +9,8 @@ module.exports.int2Bytes = int2Bytes;
 module.exports.long2Bytes = long2Bytes;
 module.exports.float2Bytes = float2Bytes;
 
+var POW32 = Math.pow(2, 32);
+
 function isarray(arr) {
   return Array.isArray(arr) || ArrayBuffer.isView(arr);
 }
@@ -43,13 +45,16 @@ function bytes2Long(arr, start, littleEndian) {
   if (!isarray(arr) || arr.length < start + 8) {
     return 0;
   }
-  const a = new ArrayBuffer(8);
-  const b = new DataView(a);
+  if (b.getBigInt64) {
+    const a = new ArrayBuffer(8);
+    const b = new DataView(a);
 
-  for (var i = 0; i < 8; i++) {
-    b.setInt8(i, arr[start + i]);
+    for (var i = 0; i < 8; i++) {
+      b.setInt8(i, arr[start + i]);
+    }
+    return b.getBigInt64(0, littleEndian);
   }
-  return b.getBigInt64(0, littleEndian);
+  return bytes2Int(arr, 0) * POW32 + bytes2Int(arr, 4);
 }
 
 function bytes2Float(arr, start, littleEndian) {
@@ -96,12 +101,16 @@ function long2Bytes(i, littleEndian) {
   if (!Number.isInteger(i)) {
     return [];
   }
-  const a = new ArrayBuffer(8);
-  const b = new DataView(a);
+  if (b.setBigInt64) {
+    const a = new ArrayBuffer(8);
+    const b = new DataView(a);
 
-  b.setBigInt64(0, BigInt(i), littleEndian);
+    b.setBigInt64(0, BigInt(i), littleEndian);
 
-  return new Uint8Array(a);
+    return new Uint8Array(a);
+  }
+
+  return [...int2Bytes(Math.floor(i / POW32)), ...int2Bytes(i % POW32)];
 }
 
 // The length of the array returned is 4
