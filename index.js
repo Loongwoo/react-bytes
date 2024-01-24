@@ -110,7 +110,11 @@ function long2Bytes(i, littleEndian) {
     return new Uint8Array(a);
   }
 
-  return [...int2Bytes(Math.floor(i / POW32)), ...int2Bytes(i % POW32)];
+  const res = new Uint8Array(8);
+  res.set(int2Bytes(Math.floor(i / POW32)), 0);
+  res.set(int2Bytes(i % POW32), 4);
+
+  return res;
 }
 
 // The length of the array returned is 4
