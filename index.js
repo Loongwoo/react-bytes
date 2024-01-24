@@ -45,10 +45,9 @@ function bytes2Long(arr, start, littleEndian) {
   if (!isarray(arr) || arr.length < start + 8) {
     return 0;
   }
+  const a = new ArrayBuffer(8);
+  const b = new DataView(a);
   if (b.getBigInt64) {
-    const a = new ArrayBuffer(8);
-    const b = new DataView(a);
-
     for (var i = 0; i < 8; i++) {
       b.setInt8(i, arr[start + i]);
     }
@@ -98,23 +97,16 @@ function int2Bytes(i, littleEndian) {
 
 // The length of the array returned is 8
 function long2Bytes(i, littleEndian) {
-  if (!Number.isInteger(i)) {
-    return [];
-  }
+  const a = new ArrayBuffer(8);
+  const b = new DataView(a);
   if (b.setBigInt64) {
-    const a = new ArrayBuffer(8);
-    const b = new DataView(a);
-
     b.setBigInt64(0, BigInt(i), littleEndian);
-
-    return new Uint8Array(a);
+  } else {
+    b.setInt32(0, Math.floor(i / POW32), littleEndian);
+    b.setInt32(4, i % POW32, littleEndian);
   }
 
-  const res = new Uint8Array(8);
-  res.set(int2Bytes(Math.floor(i / POW32)), 0);
-  res.set(int2Bytes(i % POW32), 4);
-
-  return res;
+  return new Uint8Array(a);
 }
 
 // The length of the array returned is 4
