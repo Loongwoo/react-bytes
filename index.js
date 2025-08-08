@@ -146,10 +146,27 @@ function isHexString(str) {
  * 将十六进制字符串转换为 Uint8Array
  * @param {string} str - 十六进制字符串
  * @param {Object} [options]
+ * @param {string} [options.splitChar=''] - 分隔符，默认空字符串表示无分隔符
  * @param {boolean} [options.padEnable=false] - 是否启用奇数长度补零
  * @param {boolean} [options.padLeft=false] - 奇数长度补零时，是否左补零（否则右补零）
  */
-function hexStr2Bytes(str, { padEnable = false, padLeft = false } = {}) {
+function hexStr2Bytes(str, { splitChar = '', padEnable = false, padLeft = false } = {}) {
+  if (!str) return new Uint8Array(0);
+
+  if (typeof splitChar === 'string' && splitChar.length > 0) {
+    const arr = str.split(splitChar).filter(s => isHexString(s));
+
+    const len = arr.length;
+    const buffer = new ArrayBuffer(len);
+    const view = new DataView(buffer);
+
+    for (let i = 0; i < len; i++) {
+      view.setUint8(i, parseInt(arr[i], 16));
+    }
+    return new Uint8Array(buffer);
+  }
+
+  // 无分隔符时处理连续的16进制字符串
   if (!isHexString(str)) return new Uint8Array(0);
 
   let hexStr = str;

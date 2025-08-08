@@ -71,3 +71,9 @@ if (ReactBytes.hexStr2Bytes('abc', { padEnable: true, padLeft: true }).join(',')
 } else {
   console.log('hexStr2Bytes fail');
 }
+
+if (ReactBytes.hexStr2Bytes('ab:c0', { splitChar: ':' }).join(',') === '171,192') {
+  console.log('hexStr2Bytes ok');
+} else {
+  console.log('hexStr2Bytes fail');
+}
