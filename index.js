@@ -8,6 +8,8 @@ module.exports.short2Bytes = short2Bytes;
 module.exports.int2Bytes = int2Bytes;
 module.exports.long2Bytes = long2Bytes;
 module.exports.float2Bytes = float2Bytes;
+module.exports.bytes2HexStr = bytes2HexStr;
+module.exports.hexStr2Bytes = hexStr2Bytes;
 
 var POW32 = Math.pow(2, 32);
 
@@ -117,4 +119,55 @@ function float2Bytes(i, littleEndian) {
   b.setFloat32(0, i, littleEndian);
 
   return new Uint8Array(a);
+}
+
+/**
+ * 将字节数组转换为十六进制字符串
+ */
+function bytes2HexStr(arr, start = 0, end = arr.length, { joinChar = '', uppercase = false } = {}) {
+  if (!isarray(arr) || arr.length < end) {
+    return '';
+  }
+  const hex = Array.prototype.slice
+    .call(arr, start, end)
+    .map(a => a.toString(16).padStart(2, '0'))
+    .join(joinChar);
+  return uppercase ? hex.toUpperCase() : hex;
+}
+
+/**
+ * 判断是否为有效的十六进制字符串
+ */
+function isHexString(str) {
+  return !!str && /^[0-9a-fA-F]+$/.test(str);
+}
+
+/**
+ * 将十六进制字符串转换为 Uint8Array
+ * @param {string} str - 十六进制字符串
+ * @param {Object} [options]
+ * @param {boolean} [options.padEnable=false] - 是否启用奇数长度补零
+ * @param {boolean} [options.padLeft=false] - 奇数长度补零时，是否左补零（否则右补零）
+ */
+function hexStr2Bytes(str, { padEnable = false, padLeft = false } = {}) {
+  if (!isHexString(str)) return new Uint8Array(0);
+
+  let hexStr = str;
+  if (hexStr.length % 2 !== 0 && padEnable) {
+    if (padLeft) {
+      hexStr = hexStr.padStart(hexStr.length + 1, '0');
+    } else {
+      hexStr = hexStr.padEnd(hexStr.length + 1, '0');
+    }
+  }
+
+  const len = Math.floor(hexStr.length / 2);
+  const buffer = new ArrayBuffer(len);
+  const view = new DataView(buffer);
+
+  for (let i = 0; i < len; i++) {
+    const s = hexStr.slice(2 * i, 2 * i + 2);
+    view.setUint8(i, parseInt(s, 16));
+  }
+  return new Uint8Array(buffer);
 }

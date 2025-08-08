@@ -73,3 +73,19 @@ transform float to bytes
 ```js
 float2Bytes(2.387939260590663e-38).should.equal([1, 2, 3, 4]);
 ```
+
+### bytes2HexStr(arr)
+
+transform bytes to hex string
+
+```js
+bytes2HexStr([171, 205]).should.equal('abcd');
+```
+
+### hexStr2Bytes(str)
+
+transform hex string to bytes
+
+```js
+hexStr2Bytes('abcd').should.equal([171, 205]);
+```

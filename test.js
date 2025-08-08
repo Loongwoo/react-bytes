@@ -47,3 +47,27 @@ if (ReactBytes.float2Bytes(2.387939260590663e-38).join('') === '1234') {
 } else {
   console.log('float2Bytes fail');
 }
+
+if (ReactBytes.bytes2HexStr([18, 52, 86, 120, 144, 171, 205, 239, 16]) === '1234567890abcdef10') {
+  console.log('bytes2HexStr ok');
+} else {
+  console.log('bytes2HexStr fail');
+}
+
+if (ReactBytes.hexStr2Bytes('abc').join(',') === '171') {
+  console.log('hexStr2Bytes ok');
+} else {
+  console.log('hexStr2Bytes fail');
+}
+
+if (ReactBytes.hexStr2Bytes('abc', { padEnable: true }).join(',') === '171,192') {
+  console.log('hexStr2Bytes ok');
+} else {
+  console.log('hexStr2Bytes fail');
+}
+
+if (ReactBytes.hexStr2Bytes('abc', { padEnable: true, padLeft: true }).join(',') === '10,188') {
+  console.log('hexStr2Bytes ok');
+} else {
+  console.log('hexStr2Bytes fail');
+}
